@@ -15,7 +15,7 @@ const fragmentShader = `
   @fragment
   fn fs( @builtin(position) pos : vec4f ) -> @location(0) vec4f {
     let uv = pos.xy / res;
-    return vec4f( pos.x, 0.0, 0.0, 1. );
+    return vec4f( uv.x, 0.0, uv.y, 1. );
   }
 `
 
@@ -34,6 +34,8 @@ const renderPass = await sg.render({
   ],
   onframe() { frame.value++ }
 })
+
+console.log(data)
 
 // run our render pass
 sg.run( renderPass )

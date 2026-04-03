@@ -1,41 +1,29 @@
-import { default as gulls } from './gulls.js'
+// because gulls uses the await keyword, we have to wrap our
+// code in an async function and call it. when we use js modules we
+// don't have to do this, which is nice... but wrapping isn't that
+// big of a deal.
+async function run() {
+  const sg = await gulls.init()
 
-// start seagulls, by default it will use the first <canvas> element it
-// finds in your HTML page
-const sg   = await gulls.init()
+  // a simple vertex shader to make a quad
+  const quadVertexShader = gulls.constants.vertex
 
-// a simple vertex shader to make a quad
-const quadVertexShader = gulls.constants.vertex
-
-// our fragment shader, just returns blue
-const fragmentShader = `
-  @group(0) @binding(0) var<uniform> res   : vec2f;
-  @group(0) @binding(1) var<uniform> frame : f32;
-  
+  // our fragment shader, just returns blue
+  const fragmentShader = `
   @fragment
   fn fs( @builtin(position) pos : vec4f ) -> @location(0) vec4f {
-    let uv = pos.xy / res;
-    return vec4f( uv.x, 0.0, uv.y, 1. );
+    return vec4(0., 0., 1., 1. );
   }
-`
+  `
 
-// our vertex + fragment shader together
-const shader = quadVertexShader + fragmentShader
+  // our vertex + fragment shader together
+  const shader = quadVertexShader + fragmentShader
 
-// create a render pass
-let frame = sg.uniform( 0 )
-const renderPass = await sg.render({ 
-  shader,
-  // add a data array to specify uniforms / buffers / textures etc.
-  data:[
-    sg.uniform([ window.innerWidth, window.innerHeight ]),
-    // make sure this is second so it gets bound to index 1
-    frame
-  ],
-  onframe() { frame.value++ }
-})
+  // create a render pass
+  const renderPass = await sg.render({ shader })
 
-console.log(data)
+  // run our render pass
+  sg.run( renderPass )
+}
 
-// run our render pass
-sg.run( renderPass )
+run()

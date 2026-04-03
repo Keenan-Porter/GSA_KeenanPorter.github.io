@@ -1021,4 +1021,5 @@ const gulls = {
   }
 }
 
-export default gulls
+window.gulls = gulls
+//export default gulls

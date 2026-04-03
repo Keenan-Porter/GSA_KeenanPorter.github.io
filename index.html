@@ -3,12 +3,30 @@
 
   <head>
     <meta charset=utf-8>
+    <script src=helpers/audio.js></script>
+    <script src=helpers/mouse.js></script>
+    <script src=helpers/video.js></script> 
     <script src=gulls.js></script>
-    <script src=main.js type=module></script>
+    <script src=main.js></script>
     <style> body { margin:0 } </style> 
   </head>
   
   <body>
+    <input 
+       type=range 
+       id=slider 
+       min=0 max=4 
+       step=any 
+       style='position:absolute; left:0; top:0; z-index:1'
+    />
+    <input
+       type=range 
+       id=slider2 
+       min=0 max=1 
+       step=any 
+       style='position:absolute; left:0; top:50px; z-index:1'
+    /> 
+    <button id=button style='position:absolute; left:0; top:100px; z-index:1'>Invert noise</button>
     <canvas></canvas>
   </body>
   

@@ -15,7 +15,7 @@ const fragmentShader = `
   @fragment
   fn fs( @builtin(position) pos : vec4f ) -> @location(0) vec4f {
     let uv = pos.xy / res;
-    return vec4f( uv.x, .5+sin(frame/60.)*.5, uv.y, 1. );
+    return vec4f( 0.0, 1., 1., 1. );
   }
 `
 
